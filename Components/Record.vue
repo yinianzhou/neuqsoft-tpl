@@ -112,6 +112,7 @@ export default class extends Vue {
           reviewDate: string.dateStrToFormat('YYYYMMDDHHmmss', item.reviewDate),
         };
       });
+
       this.isLoading = false;
     } catch (error) {
       this.$dialog.alert({
