@@ -1,6 +1,6 @@
 <template>
   <van-tabs v-model="activeName" line-width="100px">
-    <van-tab title="申请" name="APPLY">
+    <van-tab title="{{description}}申请" name="APPLY">
       <Apply v-if="activeName==='APPLY'" @toTab="toTab"></Apply>
     </van-tab>
     <van-tab title="已申报业务查询" name="RECORD">
@@ -15,6 +15,7 @@ import Record from './Components/Record.vue';
 import Apply from './Components/Apply.vue';
 
 @Component({
+  name:{{name}},
   components: {
     Record,
     Apply,
@@ -22,8 +23,6 @@ import Apply from './Components/Apply.vue';
 })
 export default class extends Vue {
   activeName = 'APPLY';
-
-  loading = false;
 
   toTab(activeName) {
     this.activeName = activeName;

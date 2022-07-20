@@ -39,8 +39,8 @@
     </van-pull-refresh>
     <van-popup v-model="detailShow" round style="width: 80%; padding: 10px 5px">
       <div>
-        <van-cell-group title="基本信息">
-          <van-field v-model="detail.aac003" label="姓名" input-align="right" readonly />
+        <van-cell-group title="详情信息">
+          <van-field v-model="detail.xxx" label="根据业务自己编写" input-align="right" readonly />
         </van-cell-group>
       </div>
     </van-popup>
@@ -76,20 +76,6 @@ export default class extends Vue {
       const data = await Services.getUserInfo();
       this.userInfo = data || {};
       this.getRecordList();
-    } catch (error) {
-      this.alert('提示', error.message);
-    }
-  }
-
-  async queryPersonInfo(item) {
-    const params = {
-      apc001: item.apc001,
-      appcode: item.appcode,
-    };
-    try {
-      const data = await Services.queryPersonInfo(params);
-      this.detail = data || {};
-      this.detailShow = true;
     } catch (error) {
       this.alert('提示', error.message);
     }
@@ -134,8 +120,4 @@ export default class extends Vue {
 }
 </script>
 <style lang="less" scoped>
-.title {
-  cursor: pointer;
-  color: #1989fa;
-}
 </style>

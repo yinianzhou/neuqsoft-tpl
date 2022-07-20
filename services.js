@@ -4,13 +4,13 @@ const baseUrl = CONTEXT_URL;
 
 const get = params =>
   http.get({
-    url: `${baseUrl}/`,
+    url: `${baseUrl}/default`,
     params,
   });
 
 const post = data =>
   http.post({
-    url: `${baseUrl}/xxxxxx`,
+    url: `${baseUrl}/default`,
     data: data,
   });
 
