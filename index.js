@@ -3,7 +3,7 @@ export default [
     path: '/xxx/xxx',
     name: 'xxx-xxx',
     meta: {
-      name: '模块名称',
+      name: {{description}},
     },
     component: () => import(/* webpackChunkName: "xxx-xxx" */ './index.vue'),
   },

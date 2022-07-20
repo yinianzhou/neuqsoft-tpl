@@ -45,6 +45,7 @@ import NoData from '@/components/noData/NoData';
 import Services from '../services';
 import { APPLY_SRC, APP_CODE } from '../constants';
 @Component({
+  name:{{name}},
   components: {
     Picker,
     Button,
