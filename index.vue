@@ -1,37 +1,80 @@
 <template>
-  <van-tabs v-model="activeName" line-width="100px">
-    <van-tab title="申请" name="APPLY">
-      <Apply v-if="activeName==='APPLY'" @toTab="toTab"></Apply>
-    </van-tab>
-    <van-tab title="已申报业务查询" name="RECORD">
-      <Record v-if="activeName==='RECORD'"></Record>
-    </van-tab>
-  </van-tabs>
+  <div class="common-body">
+    <div class="query-tab">
+      <a-tabs default-active-key="APPLY" @change="onChange">
+        <a-tab-pane key="APPLY" tab="{{description}}业务办理">
+          <Apply ref="ApplyRef"></Apply>
+        </a-tab-pane>
+        <a-tab-pane key="RECORD" tab="已申报业务查询">
+          <YsbywcxYtj
+            :appcode="appcode"
+            :applytype="applytype"
+            @viewDetailInfo="viewDetailInfo"
+            :pauseGuid="pauseGuid"
+          ></YsbywcxYtj>
+        </a-tab-pane>
+      </a-tabs>
+    </div>
+    <a-drawer
+      title="申报信息查看"
+      placement="right"
+      width="30%"
+      :closable="false"
+      :visible="visible"
+      @close="onCloseSteps"
+    >
+      <Detail :detail-info="detailInfo" ref="detailInfoRef" :pauseGuid="pauseGuid"></Detail>
+    </a-drawer>
+  </div>
 </template>
 
 <script>
 import { Component, Vue } from 'vue-property-decorator';
-import Record from './Components/Record.vue';
 import Apply from './Components/Apply.vue';
-
+import Detail from './Components/Detail.vue';
+import YsbywcxYtj from '@/components/YsbywcxYtj';
+import guid from '@/utils/guid';
+import ConfirmTips from '@/components/confirmTips';
+import { APP_CODE, APPLY_TYPE } from './constants';
 @Component({
+  name:{{name}},
   components: {
-    Record,
+    YsbywcxYtj,
+    Detail,
     Apply,
+    ConfirmTips,
   },
 })
 export default class extends Vue {
-  activeName = 'APPLY';
-
-  loading = false;
-
-  toTab(activeName) {
-    this.activeName = activeName;
-  }
+  active = 'APPLY';
+  appcode = APP_CODE;
+  applytype = APPLY_TYPE;
+  visible = false;
+  showTips = true;
+  disableEdit = false; //详情页面是否可编辑
+  pauseGuid = '';
+  detailInfo = {};
 
   created() {
-    // init
+    this.pauseGuid = guid.getCode();
+  }
+  onChange(key) {
+    if (key == 'RECORD') {
+      this.pauseGuid = guid.getCode();
+    }
+  }
+
+  viewDetailInfo(item) {
+    this.pauseGuid = guid.getCode();
+    this.detailInfo = item;
+    this.visible = true;
+  }
+
+  onCloseSteps() {
+    this.visible = false;
   }
 }
 </script>
-
+<style scoped lang="less">
+@import '../../../../assets/less/ytj';
+</style>
