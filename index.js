@@ -1,10 +1,10 @@
 export default [
   {
     path: '{{router}}',
-    name: '{{router}}',
+    name: '{{routerName}}',
     meta: {
       name: '{{description}}',
     },
-    component: () => import(/* webpackChunkName: "{{router}}" */ './index.vue'),
+    component: () => import(/* webpackChunkName: "{{routerName}}" */ './index.vue'),
   },
 ];
